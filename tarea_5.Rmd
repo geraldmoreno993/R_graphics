@@ -1,0 +1,82 @@
+---
+title: "Tarea 05"
+author: "Gerald"
+date: "2024-09-30"
+output:
+  html_document: default
+  pdf_document: default
+---
+
+## Pregunta 1
+Utilice gráficos para intentar determinar si cada una de las primeras cinco variables del data 
+frame swiss se ajusta a una distribución normal.
+Recuerde que siempre se puede modificar la ventana de gráficos. 
+
+```{r,results='hide'}
+
+s <- swiss
+lapply(s[,-6], qqnorm)
+
+```
+
+```{r,results='hide'}
+#Usando una función dentro del argumento lapply para personalizar gráficos
+s <- swiss
+lapply(names(s)[-6], function(var) {
+  qqnorm(s[[var]], 
+         main = paste("QQ-plot de", var),  # Título dinámico con el nombre de la variable
+         xlab = "Cuantiles Teóricos", 
+         ylab = "Cuantiles Muestrales")
+  qqline(s[[var]], col = "red", lwd = 2)  # Línea de referencia (color rojo, grosor de línea 2)
+})
+
+
+
+```
+
+
+### Respuesta pregunta 1: Solamente fertility, agriculture y examination se ajustan a una distribución normal
+
+
+
+## Pregunta 2
+Probabilidad de encontrar cuantiles de 80 a 90  en una curva de distribución normal con media 100 y desviación estándar 10
+```{r}
+
+
+limmax <- pnorm(q = 90, mean =100, sd =10)
+limmin <- pnorm(q = 80, mean =100, sd =10)
+#Probabilidad de encontrar cuantiles entre 90 y 80
+
+result <-limmax - limmin
+print(result)
+
+```
+
+## Pregunta 3
+Probabilidad de encontrar cuantiles mayores a 6  en una curva de distribución chi2 con grados de libertad = 3
+
+```{r}
+result3 <- 1 - pchisq(q=6, df=3)
+#Probabilidad de encontrar cuantiles entre 90 y 80
+
+print(result3)
+
+```
+
+## Pregunta 4
+Probabilidad de encontrar cuantiles mayores a 1  en una curva de distribución chi2 con grados de 
+libertad = 4
+
+```{r}
+
+result4 <- pt(q=1, df=4, lower.tail = FALSE)
+#Probabilidad de encontrar cuantiles entre 90 y 80
+
+print(result4)
+
+
+
+```
+
+

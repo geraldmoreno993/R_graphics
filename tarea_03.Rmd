@@ -1,0 +1,39 @@
+---
+title: "tarea_1_1"
+output: html_document
+date: "2024-09-23"
+---
+
+### Descripción de data.frame airquality
+```{r}
+
+head(airquality)
+tail(airquality)
+dim(airquality)
+
+table(airquality$Month)
+class(airquality$Month)
+
+airquality$Month <- factor(airquality$Month)
+```
+
+
+### Gráficos descriptivos de air$Month usando aply
+```{r}
+
+filtered_data <- airquality[(airquality$Month == 5) | (airquality$Month == 7) | (airquality$Month == 9), ]
+
+ozone_by_month <- split(filtered_data$Ozone, filtered_data$Month)
+
+invisible(lapply(names(ozone_by_month), function(month) {
+  hist(ozone_by_month[[month]], 
+       main = paste("Ozono - Mes", month),
+       xlab = "Concentracioń", ylab = "Frecuencia",
+       col = "gray", breaks=7)
+}))
+
+
+
+
+```
+
